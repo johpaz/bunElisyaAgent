@@ -1,0 +1,31 @@
+{
+  "name": "bun-elysya",
+  "version": "1.0.0",
+  "description": "Proyecto de agente conversacional con Elysia y LangGraph",
+  "type": "module",
+  "scripts": {
+    "dev": "bun run --hot src/index.ts",
+    "build": "bun build src/index.ts --outdir dist --target node",
+    "start": "bun run dist/index.ts"
+  },
+  "dependencies": {
+    "@langchain/core": "^0.3.78",
+    "@langchain/langgraph": "^0.4.9",
+    "@langchain/openai": "^0.6.16",
+    "elysia": "^1.0.0",
+    "memoirist": "^0.4.0",
+    "pg": "^8.11.0",
+    "pino": "^8.17.0",
+    "pino-pretty": "^10.3.0",
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "@types/supertest": "^6.0.3",
+    "bun-types": "^1.0.0",
+    "supertest": "^7.1.4",
+    "vitest": "^3.2.4"
+  },
+  "keywords": ["bun", "elysia", "langgraph", "whatsapp", "agent"],
+  "author": "Tu Nombre",
+  "license": "MIT"
+}
