@@ -44,10 +44,11 @@ const poolConfig = {
   connectionString: config.databaseUrl,
 
   // Configuración SSL para Aiven (REQUERIDO)
-  ssl: {
-    rejectUnauthorized: false, // false = desarrollo, true = producción con certificado
-    // Descomentar en producción con certificado CA:
-    // ca: caCertificate,
+  ssl: caCertificate ? {
+    rejectUnauthorized: true,
+    ca: caCertificate,
+  } : {
+    rejectUnauthorized: false, // fallback para desarrollo
   },
 
   // Configuración del pool
@@ -68,7 +69,8 @@ logger.info('Configuración SSL PostgreSQL', {
   sslEnabled: true,
   certificateLoaded: !!caCertificate,
   rejectUnauthorized: caCertificate ? true : false,
-  mode: caCertificate ? 'verify-full' : 'require',
+  mode: caCertificate ? 'verify-ca' : 'require',
+  environment: process.env.VERCEL ? 'vercel' : 'local'
 });
 
 /**

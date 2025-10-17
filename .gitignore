@@ -45,7 +45,6 @@ coverage/
 *.sqlite3
 
 # Certificados y claves privadas
-*.pem
 *.key
 *.crt
 
