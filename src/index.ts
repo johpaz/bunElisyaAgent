@@ -312,7 +312,7 @@ async function processIncomingMessage(message: WhatsAppMessage): Promise<void> {
 
 // Crear aplicación Elysia
 const app = new Elysia()
-  .onError(({ error, code }) => {
+  .onError(({ code, error }) => {
     // Manejo global de errores
     logger.error('Error global en servidor', {
       error: error instanceof Error ? error.message : String(error),

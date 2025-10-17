@@ -48,9 +48,9 @@ export function setWhatsAppAgent(agent: WhatsAppAgent) {
   logger.info('✅ WhatsAppAgent asignado en webhookRoutes', { hasWhatsAppAgent: !!whatsappAgent });
 }
 
-export const webhookRoutes = new Elysia({ prefix: '/webhook' })
+export const webhookRoutes = new Elysia()
   // Ruta GET /webhook - Verificación de webhook de WhatsApp
-  .get('/', (ctx) => {
+  .get('/webhook', (ctx) => {
     try {
       const query = ctx.query as Record<string, string>;
       const mode = query['hub.mode'];
@@ -81,7 +81,7 @@ export const webhookRoutes = new Elysia({ prefix: '/webhook' })
   })
 
   // Ruta POST /webhook - Recepción de mensajes de WhatsApp
-  .post('/', async (ctx) => {
+  .post('/webhook', async (ctx) => {
     try {
       const payload = ctx.body as WhatsAppWebhookPayload;
 

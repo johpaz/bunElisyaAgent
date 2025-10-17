@@ -21,9 +21,9 @@ export function setHealthCheckDependencies(dbAvailable: boolean, waService: What
   audioService = auService;
 }
 
-export const healthRoutes = new Elysia({ prefix: '/health' })
+export const healthRoutes = new Elysia()
   // Ruta GET /health - Health check del servidor
-  .get('/', async () => {
+  .get('/health', async () => {
     try {
       // Verificar conectividad de servicios
       let dbHealth = false;
