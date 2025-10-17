@@ -110,8 +110,10 @@ async function downloadFile(
   const { timeout, maxSize, allowedTypes } = options;
 
   // Crear directorio temporal si no existe
-  const tempDir = path.join(process.cwd(), 'temp');
-  await fs.mkdir(tempDir, { recursive: true });
+  const tempDir = process.env.VERCEL ? '/tmp' : path.join(process.cwd(), 'temp');
+  if (!process.env.VERCEL) {
+    await fs.mkdir(tempDir, { recursive: true });
+  }
 
   let filePath: string | undefined;
 
@@ -225,7 +227,7 @@ function getExtensionFromMimeType(mimeType: string | null): string {
  * Útil para mantenimiento periódico
  */
 export async function cleanupTempFiles(maxAgeHours: number = 24): Promise<void> {
-  const tempDir = path.join(process.cwd(), 'temp');
+  const tempDir = process.env.VERCEL ? '/tmp' : path.join(process.cwd(), 'temp');
 
   try {
     const files = await fs.readdir(tempDir);

@@ -327,9 +327,13 @@ export class AudioService {
     options: TranscriptionOptions = {}
   ): Promise<TranscriptionResult> {
     try {
-      // Crear archivo temporal
-      const tempDir = path.join(process.cwd(), 'temp');
-      await fs.mkdir(tempDir, { recursive: true });
+      // Para Vercel, usar /tmp en lugar de directorio local
+      const tempDir = process.env.VERCEL ? '/tmp' : path.join(process.cwd(), 'temp');
+
+      // Crear directorio temporal si no existe (solo en desarrollo local)
+      if (!process.env.VERCEL) {
+        await fs.mkdir(tempDir, { recursive: true });
+      }
 
       const tempPath = path.join(tempDir, `temp_audio_${Date.now()}_${filename}`);
       await fs.writeFile(tempPath, new Uint8Array(audioBuffer));

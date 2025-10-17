@@ -11,11 +11,5 @@
       "src": "/(.*)",
       "dest": "src/index.ts"
     }
-  ],
-  "outputDirectory": "dist",
-  "functions": {
-    "src/index.ts": {
-      "maxDuration": 30
-    }
-  }
+  ]
 }
