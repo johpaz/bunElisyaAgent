@@ -16,7 +16,7 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
-    "types": ["bun-types"]
+    "types": []
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]
