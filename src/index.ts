@@ -311,22 +311,45 @@ async function processIncomingMessage(message: WhatsAppMessage): Promise<void> {
 }
 
 // Crear aplicación Elysia
+// Crear aplicación Elysia
 const app = new Elysia()
-  .onError(({ code, error }) => {
-    // Manejo global de errores
-    logger.error('Error global en servidor', {
-      error: error instanceof Error ? error.message : String(error),
-      code,
-      stack: error instanceof Error ? error.stack : undefined
-    });
-
-    return {
-      success: false,
-      error: 'Error interno del servidor',
-      timestamp: new Date().toISOString()
+  .onError(({ code, error, set }) => {
+    // Función auxiliar para extraer mensaje de error de forma segura
+    const getErrorMessage = (err: any): string => {
+      if (err instanceof Error) return err.message;
+      if (typeof err === 'string') return err;
+      if (err && typeof err === 'object' && 'message' in err) return String(err.message);
+      return 'Unknown error';
     };
+
+    const errorMessage = getErrorMessage(error);
+    
+    console.log('ERROR', error);
+    
+    switch (code) {
+      case 'NOT_FOUND':
+        set.status = 404;
+        return {
+          status: 404,
+          message: `Route not found: ${errorMessage}`
+        };
+      
+      case 'VALIDATION':
+        set.status = 400;
+        return {
+          status: 400,
+          message: `Validation failed: ${errorMessage}`,
+          errors: 'validator' in error ? error.validator : undefined
+        };
+      
+      default:
+        set.status = 500;
+        return {
+          status: 500,
+          message: `Internal Server Error: ${errorMessage}`
+        };
+    }
   })
-  // Usar rutas separadas
   .use(healthRoutes)
   .use(webhookRoutes);
 

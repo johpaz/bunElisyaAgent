@@ -14,7 +14,7 @@ export const envSchema = z.object({
   DATABASE_URL: z.string().optional(),
 
   // Servidor - opcional con valor por defecto
-  PORT: z.string().optional().transform((val) => val ? parseInt(val, 10) : 3000),
+  PORT: z.string().optional().transform((val) => val ? parseInt(val, 10) : 4000),
 
   // Logging - opcional con valor por defecto
   LOG_LEVEL: z.enum(['fatal', 'error', 'warn', 'info', 'debug', 'trace']).optional().default('info'),
