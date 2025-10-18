@@ -12,7 +12,7 @@
     "@langchain/core": "^0.3.78",
     "@langchain/langgraph": "^0.4.9",
     "@langchain/openai": "^0.6.16",
-    "elysia": "^1.4.12",
+    "elysia": "1.4.12",
     "memoirist": "^0.4.0",
     "pg": "^8.11.0",
     "pino": "^8.17.0",
